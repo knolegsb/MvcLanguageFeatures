@@ -14,6 +14,24 @@ namespace MvcLanguageFeatures.Controllers
             return "Navigate to a URL to show an example";
         }
 
+        public ViewResult UseExtension()
+        {
+            ShoppingCart cart = new ShoppingCart()
+            {
+                Products = new List<Product>()
+                {
+                    new Product { Name="Kayak", Price=275M },
+                    new Product { Name="Lifejacket", Price=48.95M },
+                    new Product { Name="Soccer Ball", Price=19.50M },
+                    new Product { Name="Corner Flag", Price=39.95M },
+                }
+            };
+
+            decimal cartTotal = cart.TotalPrices();
+
+            return View("Result", (object)String.Format("Total: {0:c}", cartTotal));
+        }
+
         public ViewResult AutoProperty()
         {
             Product myProduct = new Product();
