@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvcLanguageFeatures.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,18 +14,27 @@ namespace MvcLanguageFeatures.Controllers
             return "Navigate to a URL to show an example";
         }
 
-        public ActionResult About()
+        public ViewResult AutoProperty()
         {
-            ViewBag.Message = "Your application description page.";
+            Product myProduct = new Product();
+            myProduct.Name = "Kayak";
+            string productName = myProduct.Name;
 
-            return View();
+            return View("Result", (object)String.Format("Product name: {0}", productName));
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+        //public ActionResult About()
+        //{
+        //    ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
+        //    return View();
+        //}
+
+        //public ActionResult Contact()
+        //{
+        //    ViewBag.Message = "Your contact page.";
+
+        //    return View();
+        //}
     }
 }
