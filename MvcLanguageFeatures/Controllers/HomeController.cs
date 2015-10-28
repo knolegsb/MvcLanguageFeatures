@@ -15,6 +15,32 @@ namespace MvcLanguageFeatures.Controllers
             return "Navigate to a URL to show an example";
         }
 
+        public ViewResult FindProductsWithoutLinQ()
+        {
+            Product[] products =
+            {
+                new Product {Name = "Kayak", Category = "Watersports", Price = 275M},
+                new Product {Name = "Lifejacket", Category = "Watersports", Price = 48.95M},
+                new Product {Name = "Soccer ball", Category = "Soccer", Price = 19.50M},
+                new Product {Name = "Corner flag", Category = "Soccer", Price = 34.95M}
+            };
+
+            Product[] foundProducts = new Product[3];
+            Array.Sort(products, (item1, item2) =>
+            {
+                return Comparer<decimal>.Default.Compare(item1.Price, item2.Price);
+            });
+
+            Array.Copy(products, foundProducts, 3);
+            StringBuilder result = new StringBuilder();
+            foreach(Product p in foundProducts)
+            {
+                result.AppendFormat("Price: {0} ", p.Price);
+            }
+
+            return View("Result", (object)result.ToString());
+        }
+
         public ViewResult CreateAnonArray()
         {
             var oddsAndEnds = new[]
