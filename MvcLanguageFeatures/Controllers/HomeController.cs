@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,6 +13,23 @@ namespace MvcLanguageFeatures.Controllers
         public string Index()
         {
             return "Navigate to a URL to show an example";
+        }
+
+        public ViewResult CreateAnonArray()
+        {
+            var oddsAndEnds = new[]
+            {
+                new {Name="MVC", Category="Pattern"},
+                new {Name="Hat", Category="Clothing"},
+                new {Name="Apple", Category="Fruit"}
+            };
+
+            StringBuilder result = new StringBuilder();
+            foreach (var item in oddsAndEnds)
+            {
+                result.Append(item.Name).Append(" ");
+            }
+            return View("Result", (object)result.ToString());
         }
 
         public ViewResult UseExtension()
