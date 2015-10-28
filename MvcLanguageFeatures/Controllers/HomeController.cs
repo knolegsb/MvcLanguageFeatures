@@ -106,7 +106,12 @@ namespace MvcLanguageFeatures.Controllers
             };
 
             decimal total = 0;
-            foreach (Product prod in products.FilterByCategory("Soccer"))
+            //foreach (Product prod in products.FilterByCategory("Soccer"))
+            //{
+            //    total += prod.Price;
+            //}
+
+            foreach(Product prod in products.Filter(prod => prod.Category == "Soccer"))
             {
                 total += prod.Price;
             }
