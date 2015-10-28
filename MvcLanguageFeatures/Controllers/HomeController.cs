@@ -15,7 +15,8 @@ namespace MvcLanguageFeatures.Controllers
             return "Navigate to a URL to show an example";
         }
 
-        public ViewResult FindProductsWithoutLinQ()
+        //public ViewResult FindProductsWithoutLinQ()
+        public ViewResult FindProducts()
         {
             Product[] products =
             {
@@ -25,20 +26,43 @@ namespace MvcLanguageFeatures.Controllers
                 new Product {Name = "Corner flag", Category = "Soccer", Price = 34.95M}
             };
 
-            Product[] foundProducts = new Product[3];
-            Array.Sort(products, (item1, item2) =>
-            {
-                return Comparer<decimal>.Default.Compare(item1.Price, item2.Price);
-            });
+            //var foundProducts = from match in products
+            //                    orderby match.Price descending
+            //                    select new { match.Name, match.Price };
 
-            Array.Copy(products, foundProducts, 3);
+            var foundProducts = products.OrderByDescending(e => e.Price)
+                                    .Take(3)
+                                    .Select(e => new { e.Name, e.Price });
+
+            //int count = 0;
+            products[2] = new Product { Name = "Stadium", Price = 79600M };
+
             StringBuilder result = new StringBuilder();
-            foreach(Product p in foundProducts)
+            foreach(var p in foundProducts)
             {
                 result.AppendFormat("Price: {0} ", p.Price);
+                //if(++count == 3)
+                //{
+                //    break;
+                //}
             }
 
             return View("Result", (object)result.ToString());
+
+            //Product[] foundProducts = new Product[3];
+            //Array.Sort(products, (item1, item2) =>
+            //{
+            //    return Comparer<decimal>.Default.Compare(item1.Price, item2.Price);
+            //});
+
+            //Array.Copy(products, foundProducts, 3);
+            //StringBuilder result = new StringBuilder();
+            //foreach(Product p in foundProducts)
+            //{
+            //    result.AppendFormat("Price: {0} ", p.Price);
+            //}
+
+            //return View("Result", (object)result.ToString());
         }
 
         public ViewResult CreateAnonArray()
