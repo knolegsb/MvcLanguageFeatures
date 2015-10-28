@@ -34,6 +34,7 @@ namespace MvcLanguageFeatures.Controllers
                                     .Take(3)
                                     .Select(e => new { e.Name, e.Price });
 
+            var results = products.Sum(e => e.Price);
             //int count = 0;
             products[2] = new Product { Name = "Stadium", Price = 79600M };
 
@@ -47,7 +48,8 @@ namespace MvcLanguageFeatures.Controllers
                 //}
             }
 
-            return View("Result", (object)result.ToString());
+            return View("Result", (object)String.Format("Sum: {0:c}", results));
+            //return View("Result", (object)result.ToString());
 
             //Product[] foundProducts = new Product[3];
             //Array.Sort(products, (item1, item2) =>
